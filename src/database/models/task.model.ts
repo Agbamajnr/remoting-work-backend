@@ -15,7 +15,7 @@ export class Task {
     @Prop({ required: true })
     taskName: string
 
-    @Prop({ required: true, default: false })
+    @Prop({ required: false })
     taskDescription: string
 
     @Prop({ required: true, type: MongooseSchema.Types.Map })
