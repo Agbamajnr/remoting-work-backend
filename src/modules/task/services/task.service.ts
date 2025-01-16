@@ -16,4 +16,12 @@ export class TaskService {
             return new ResponseService().error({ error: error })
         }
     };
+    async delete(id: string) {
+        try {
+            const deletedTask = await this.taskModel.findByIdAndDelete(id)
+            return new ResponseService().success({ statusCode: 201, message: 'Deleted successful', data: deletedTask })
+        } catch (error) {
+            return new ResponseService().error({ error: error })
+        }
+    };
 }

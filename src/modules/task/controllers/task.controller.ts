@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Res } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 import { CreateTaskDto } from '../dtos/create-task.dto';
 
@@ -6,10 +6,15 @@ import { CreateTaskDto } from '../dtos/create-task.dto';
 export class TaskController {
   constructor(private readonly taskService: TaskService) { }
 
-  @Post('create')
+  @Post()
   async create(@Res() res, @Body() data: CreateTaskDto) {
-    console.log('here')
     const run_service = await this.taskService.add(data)
+    return res.status(run_service.statusCode).send(run_service);
+  }
+
+  @Delete(':id')
+  async delete(@Res() res, @Param('id') id: string) {
+    const run_service = await this.taskService.delete(id)
     return res.status(run_service.statusCode).send(run_service);
   }
 }
